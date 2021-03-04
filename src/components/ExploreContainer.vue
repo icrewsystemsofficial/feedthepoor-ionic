@@ -1,6 +1,8 @@
 <template>
   <div id="container">
-    <strong>{{ name }}</strong>
+    <span class="text-white">
+      <strong>{{ name }}</strong>
+    </span>
     <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
   </div>
 </template>
@@ -16,6 +18,11 @@ export default {
 </script>
 
 <style scoped>
+
+.text-white {
+  color: white;
+}
+
 #container {
   text-align: center;
   position: absolute;

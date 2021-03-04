@@ -1,28 +1,76 @@
 <template>
-  <ion-page>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Tab 3</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Tab 3</ion-title>
-        </ion-toolbar>
-      </ion-header>
+  <ion-page>    
+    <ion-content  class="ion-padding" :fullscreen="true">
+  
+      <ExploreContainer name="Tab 1 page" />
+
+    <br><br><br><br><br><br><br><br><br><br>
       
-      <ExploreContainer name="Tab 3 page" />
+
+      <center>
+        <ion-button @click="openToast">Upload 240 images</ion-button>
+      </center>
+      <!-- <ion-button @click="openToastOptions">Open Toast: Options</ion-button> -->
     </ion-content>
   </ion-page>
 </template>
 
-<script lang="ts">
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
-import ExploreContainer from '@/components/ExploreContainer.vue';
+<script>
+import { IonButton, IonContent, IonPage, toastController } from '@ionic/vue';
 
-export default  {
-  name: 'Tab3',
-  components: { ExploreContainer, IonHeader, IonToolbar, IonTitle, IonContent, IonPage }
+export default {
+  components: { IonButton, IonContent, IonPage },
+  methods: {
+    async openToast() {
+      const toast = await toastController
+        .create({
+          header: 'Uploading',                    
+          animated: 'true',
+          message: 'Your images are queued to be uploaded..please maintain an active internet connection.',
+          duration: 4000,
+          cssClass: 'text-primary',
+          buttons: [
+            {
+              text: 'Ok',
+              role: 'cancel',
+              handler: () => {
+                console.log('Cancel clicked');
+              }
+            }
+          ]
+        })
+      return toast.present();
+    },
+    async openToastOptions() {
+      const toast = await toastController
+        .create({
+          header: 'Toast header',
+          message: 'Click to Close',
+          position: 'top',
+          buttons: [
+            {
+              side: 'start',
+              icon: 'star',
+              text: 'Favorite',
+              handler: () => {
+                console.log('Favorite clicked');
+              }
+            }, {
+              text: 'Done',
+              role: 'cancel',
+              handler: () => {
+                console.log('Cancel clicked');
+              }
+            }
+          ]
+        })
+      return toast.present();
+    },
+  },
 }
 </script>
+<style scoped>
+  .text-primary {
+    color: gray;
+  }
+</style>
